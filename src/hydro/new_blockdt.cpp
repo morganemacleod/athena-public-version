@@ -64,6 +64,12 @@ Real Hydro::NewBlockTimeStep(void) {
       if (!RELATIVISTIC_DYNAMICS) {
 #pragma ivdep
         for (int i=is; i<=ie; ++i) {
+
+	  //MM: zone averaging, changes the center widths in the 3-direction.
+          if(do_average_==true & n_avg_(j)>0){
+            dt3(i) *= n_avg_(j);
+          }
+	  
           wi[IDN]=w(IDN,k,j,i);
           wi[IVX]=w(IVX,k,j,i);
           wi[IVY]=w(IVY,k,j,i);

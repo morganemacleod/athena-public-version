@@ -59,6 +59,11 @@ public:
   void CalculateGravityFlux(AthenaArray<Real> &phi_in);
   void CorrectGravityFlux(void);
 
+  //MM:add a new function                                                                
+  void PhiAverageConserved(AthenaArray<Real> &u_in,AthenaArray<Real> &u_out);
+  void Get_block_N_zone_avg(MeshBlock *pmb);
+
+
 private:
   AthenaArray<Real> dt1_,dt2_,dt3_;  // scratch arrays used in NewTimeStep
   // scratch space used to compute fluxes
@@ -81,5 +86,11 @@ private:
 
 
   TimeStepFunc_t UserTimeStep_;
+
+  // MM:zone-averaging                                                              
+  bool do_average_;
+  AthenaArray<int> n_avg_;
+
+  
 };
 #endif // HYDRO_HYDRO_HPP_

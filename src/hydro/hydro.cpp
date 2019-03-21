@@ -7,6 +7,10 @@
 //  \brief implementation of functions in class Hydro
 
 // C/C++ headers
+// MM: need these for the exception check
+#include <iostream>   // endl
+#include <sstream>    // sstream
+#include <stdexcept>  // runtime_error   
 #include <string>
 
 // Athena++ headers
@@ -100,6 +104,19 @@ Hydro::Hydro(MeshBlock *pmb, ParameterInput *pin) {
   // ptr to diffusion object
   phdif = new HydroDiffusion(this,pin);
 
+
+  // MM:get input related to zone-averaging
+  n_avg_.NewAthenaArray(ncells2);
+  do_average_ = pin->GetOrAddBoolean("hydro","polar_average",false);
+  if (do_average_== true and COORDINATE_SYSTEM != "spherical_polar"){
+    std::stringstream msg;
+    msg << "### FATAL ERROR in Hydro::Hydro" << std::endl
+        << "Zone averaging (polar_average=true) only works with spherical polar coordinates" << std::endl;
+    throw std::runtime_error(msg.str().c_str());
+    return;
+  }
+
+
 }
 
 // destructor
@@ -156,4 +173,7 @@ Hydro::~Hydro() {
   }
   delete psrc;
   delete phdif;
+
+  //MM: zone averaging
+  n_avg_.DeleteAthenaArray();
 }
