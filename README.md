@@ -20,3 +20,6 @@ Development of these techniques by Morgan MacLeod and Wenrui Xu.
 if you use in publications, please cite:
 https://ui.adsabs.harvard.edu/#abs/2018ApJ...863....5M/abstract, https://ui.adsabs.harvard.edu/#abs/2018ApJ...868..136M/abstract, 
 and W. Xu et al. (in prep, 2019) 
+and please link to this repository. 
+
+Changes, improvements, suggestions are welcomed! 
